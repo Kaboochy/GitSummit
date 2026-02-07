@@ -1,1 +1,1 @@
-# belayBuddies
+# GitSummit
