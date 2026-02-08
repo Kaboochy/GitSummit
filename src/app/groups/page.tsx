@@ -66,17 +66,40 @@ export default function GroupsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold flex items-center gap-2">
-          <Users className="h-7 w-7 text-emerald-600" />
-          Climbing Gyms
-        </h1>
-        <p className="mt-1 text-zinc-500 dark:text-zinc-400">
-          Create or join climbing gyms to compete with friends!
-        </p>
-      </div>
+    <div className="relative min-h-screen">
+      {/* Background Image */}
+      <div
+        className="fixed inset-0 bg-cover bg-center opacity-70"
+        style={{
+          backgroundImage: "url(/sprites/ElCapoochyBannerLow.png)",
+          imageRendering: "pixelated",
+          filter: "brightness(1.1) contrast(1.05)",
+        }}
+      />
+      <div className="fixed inset-0 bg-gradient-to-b from-sky-400/20 via-transparent to-green-900/30 dark:from-sky-950/30 dark:via-transparent dark:to-green-950/40" />
+
+      {/* Content */}
+      <div className="relative z-10 mx-auto max-w-4xl px-4 py-8">
+        {/* Header */}
+        <div className="mb-8">
+          <h1
+            className="flex items-center gap-2 font-bold text-white drop-shadow-lg"
+            style={{
+              fontFamily: "var(--font-pixel)",
+              fontSize: "1.5rem",
+              textShadow: "0 2px 6px rgba(0,0,0,0.8)",
+            }}
+          >
+            <Users className="h-7 w-7 text-yellow-300" />
+            Climbing Gyms
+          </h1>
+          <p
+            className="mt-2 text-white drop-shadow-lg"
+            style={{ textShadow: "0 2px 4px rgba(0,0,0,0.7)" }}
+          >
+            Create or join climbing gyms to compete with friends!
+          </p>
+        </div>
 
       {/* Create + Join side by side */}
       <div className="mb-8 grid gap-6 sm:grid-cols-2">
