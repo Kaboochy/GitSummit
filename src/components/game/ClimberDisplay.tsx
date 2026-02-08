@@ -53,13 +53,16 @@ export function ClimberDisplay({ totalPoints }: ClimberDisplayProps) {
   const climberBottom = 5 + (climbProgress * 0.55);
 
   return (
-    <div className="relative w-full rounded-xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-700 dark:bg-zinc-900">
-      <p className="mb-4 text-center text-sm font-medium text-zinc-500 dark:text-zinc-400">
+    <div className="relative w-full border-4 border-stone-900 bg-green-700 p-5 shadow-lg dark:border-black dark:bg-green-800">
+      <p
+        className="mb-4 text-center font-bold text-white"
+        style={{ fontFamily: "var(--font-pixel)", fontSize: "0.75rem" }}
+      >
         Climbing Progress
       </p>
 
       {/* Mountain + Climber container */}
-      <div className="relative mx-auto overflow-hidden rounded-lg" style={{ width: 288, height: 288 }}>
+      <div className="relative mx-auto overflow-hidden border-4 border-stone-900 dark:border-black" style={{ width: 288, height: 288 }}>
         {/* Mountain background */}
         <Image
           src="/sprites/ElCapoochy.png"
@@ -101,14 +104,17 @@ export function ClimberDisplay({ totalPoints }: ClimberDisplayProps) {
 
       {/* Points counter — no cap */}
       <div className="mt-4 text-center">
-        <p className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">
+        <p
+          className="text-4xl font-bold text-white"
+          style={{ fontFamily: "var(--font-pixel)" }}
+        >
           {totalPoints}
         </p>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400">
+        <p className="text-sm text-white">
           {totalPoints === 1 ? "point" : "points"} earned
           {timesClimbed > 0 && (
-            <span className="ml-1 text-emerald-500">
-              &middot; {timesClimbed} summit{timesClimbed !== 1 ? "s" : ""} reached
+            <span className="ml-1 font-bold" style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}>
+              · {timesClimbed} summit{timesClimbed !== 1 ? "s" : ""}
             </span>
           )}
         </p>

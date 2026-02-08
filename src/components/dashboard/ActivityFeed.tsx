@@ -23,8 +23,8 @@ export function ActivityFeed({ events }: ActivityFeedProps) {
 
   if (recentEvents.length === 0) {
     return (
-      <div className="rounded-xl border border-zinc-200 bg-white p-6 text-center dark:border-zinc-800 dark:bg-zinc-900">
-        <p className="text-zinc-500 dark:text-zinc-400">
+      <div className="border-4 border-stone-900 bg-blue-700 p-6 text-center shadow-lg dark:border-black dark:bg-blue-800">
+        <p className="text-white">
           No push events yet. Link a repo and hit &quot;Sync Now&quot; to start
           earning points!
         </p>
@@ -33,29 +33,40 @@ export function ActivityFeed({ events }: ActivityFeedProps) {
   }
 
   return (
-    <div className="rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
-      <div className="border-b border-zinc-200 px-4 py-3 dark:border-zinc-800">
-        <h3 className="font-semibold">Recent Activity</h3>
+    <div className="border-4 border-stone-900 bg-blue-700 shadow-lg dark:border-black dark:bg-blue-800">
+      <div className="border-b-4 border-stone-900 px-4 py-3 dark:border-black">
+        <h3
+          className="font-bold text-white"
+          style={{ fontFamily: "var(--font-pixel)", fontSize: "0.75rem" }}
+        >
+          Recent Activity
+        </h3>
       </div>
-      <ul className="divide-y divide-zinc-100 dark:divide-zinc-800">
+      <ul className="divide-y-4 divide-stone-900 dark:divide-black">
         {recentEvents.map((event) => (
-          <li key={event.id} className="flex items-center gap-3 px-4 py-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/30">
-              <GitBranch className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+          <li key={event.id} className="flex items-center gap-3 px-4 py-3 bg-blue-600 dark:bg-blue-900">
+            <div className="flex h-8 w-8 items-center justify-center border-2 border-stone-900 bg-green-600 dark:border-black dark:bg-green-700">
+              <GitBranch className="h-4 w-4 text-white" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">
+              <p className="text-sm font-medium truncate text-white">
                 Pushed to{" "}
-                <span className="text-emerald-600 dark:text-emerald-400">
+                <span
+                  className="font-bold text-yellow-300"
+                  style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}
+                >
                   {event.repositories?.repo_name || "unknown"}
                 </span>
               </p>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400">
+              <p className="text-xs text-blue-200">
                 {event.commit_count} commit{event.commit_count !== 1 ? "s" : ""}{" "}
                 · {formatTimeAgo(event.event_created_at)}
               </p>
             </div>
-            <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
+            <span
+              className="font-bold text-yellow-300"
+              style={{ fontFamily: "var(--font-pixel)", fontSize: "0.75rem" }}
+            >
               +{event.points_awarded}
             </span>
           </li>

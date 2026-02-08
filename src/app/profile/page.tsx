@@ -159,23 +159,45 @@ export default function ProfilePage() {
   );
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8">
-      {/* Profile Header */}
-      <div className="mb-8 flex items-center gap-4">
-        <UserAvatar
-          src={session.user.avatarUrl || session.user.image || ""}
-          alt={session.user.githubUsername || "User"}
-          size={64}
-        />
-        <div>
-          <h1 className="text-2xl font-bold">
-            {session.user.name || session.user.githubUsername}
-          </h1>
-          <p className="text-zinc-500 dark:text-zinc-400">
-            @{session.user.githubUsername}
-          </p>
+    <div className="relative min-h-screen">
+      {/* Background Image */}
+      <div
+        className="fixed inset-0 bg-cover bg-center opacity-70"
+        style={{
+          backgroundImage: "url(/sprites/ElCapoochyBannerLow.png)",
+          imageRendering: "pixelated",
+          filter: "brightness(1.1) contrast(1.05)",
+        }}
+      />
+      <div className="fixed inset-0 bg-gradient-to-b from-sky-400/20 via-transparent to-green-900/30 dark:from-sky-950/30 dark:via-transparent dark:to-green-950/40" />
+
+      {/* Content */}
+      <div className="relative z-10 mx-auto max-w-4xl px-4 py-8">
+        {/* Profile Header */}
+        <div className="mb-8 flex items-center gap-4">
+          <UserAvatar
+            src={session.user.avatarUrl || session.user.image || ""}
+            alt={session.user.githubUsername || "User"}
+            size={64}
+          />
+          <div>
+            <h1
+              className="text-2xl font-bold text-white drop-shadow-lg"
+              style={{
+                fontFamily: "var(--font-pixel)",
+                textShadow: "0 2px 6px rgba(0,0,0,0.8)",
+              }}
+            >
+              {session.user.name || session.user.githubUsername}
+            </h1>
+            <p
+              className="text-white drop-shadow-lg"
+              style={{ textShadow: "0 2px 4px rgba(0,0,0,0.7)" }}
+            >
+              @{session.user.githubUsername}
+            </p>
+          </div>
         </div>
-      </div>
 
       {/* Status message */}
       {message && (
@@ -192,8 +214,15 @@ export default function ProfilePage() {
 
       {/* Linked Repos */}
       <section className="mb-8">
-        <h2 className="mb-4 text-lg font-semibold flex items-center gap-2">
-          <LinkIcon className="h-5 w-5 text-emerald-600" />
+        <h2
+          className="mb-4 flex items-center gap-2 font-bold text-white drop-shadow-lg"
+          style={{
+            fontFamily: "var(--font-pixel)",
+            fontSize: "0.875rem",
+            textShadow: "0 2px 6px rgba(0,0,0,0.8)",
+          }}
+        >
+          <LinkIcon className="h-5 w-5 text-yellow-300" />
           Linked Repos ({linkedRepos.length})
         </h2>
 
@@ -242,8 +271,15 @@ export default function ProfilePage() {
 
       {/* Available GitHub Repos */}
       <section>
-        <h2 className="mb-4 text-lg font-semibold flex items-center gap-2">
-          <GitBranch className="h-5 w-5" />
+        <h2
+          className="mb-4 flex items-center gap-2 font-bold text-white drop-shadow-lg"
+          style={{
+            fontFamily: "var(--font-pixel)",
+            fontSize: "0.875rem",
+            textShadow: "0 2px 6px rgba(0,0,0,0.8)",
+          }}
+        >
+          <GitBranch className="h-5 w-5 text-yellow-300" />
           Your GitHub Repos
         </h2>
 
@@ -318,6 +354,7 @@ export default function ProfilePage() {
           </div>
         )}
       </section>
+      </div>
     </div>
   );
 }

@@ -46,23 +46,27 @@ export async function calculateAndAwardStreakBonus(
   }
 
   // Calculate new streak
-  let newStreak = 1;
+  let newStreak = 1; // Default to 1 for first push or broken streak
   let bonusPoints = 1; // Base bonus for first push of the day
 
   if (lastPushDate) {
-    const lastDate = new Date(lastPushDate);
-    const todayDate = new Date(today);
+    const lastDate = new Date(lastPushDate + "T00:00:00Z");
+    const todayDate = new Date(today + "T00:00:00Z");
     const diffDays = Math.floor(
       (todayDate.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24)
     );
 
     if (diffDays === 1) {
-      // Consecutive day - increment streak
-      newStreak = (user.current_streak || 0) + 1;
+      // Consecutive day - increment streak from current value
+      const currentStreak = user.current_streak || 0;
+      newStreak = currentStreak + 1;
     } else if (diffDays > 1) {
       // Streak broken - reset to 1
       newStreak = 1;
     }
+  } else {
+    // First push ever - explicitly set to 1
+    newStreak = 1;
   }
 
   // Check for milestone bonuses

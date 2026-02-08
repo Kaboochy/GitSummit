@@ -86,10 +86,19 @@ export default function DashboardPage() {
             size={64}
           />
           <div>
-            <h1 className="text-2xl font-bold">
+            <h1
+              className="text-2xl font-bold text-white drop-shadow-lg"
+              style={{
+                fontFamily: "var(--font-pixel)",
+                textShadow: "0 2px 6px rgba(0,0,0,0.8)",
+              }}
+            >
               Welcome back, @{session.user.githubUsername}!
             </h1>
-            <p className="text-zinc-500 dark:text-zinc-400">
+            <p
+              className="text-white drop-shadow-lg"
+              style={{ textShadow: "0 2px 4px rgba(0,0,0,0.7)" }}
+            >
               Push code, earn points, reach the summit.
             </p>
           </div>
@@ -111,38 +120,63 @@ export default function DashboardPage() {
 
       {/* Stat cards */}
       <div className="mt-6 grid gap-4 sm:grid-cols-3">
-        <div className="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="border-4 border-stone-900 bg-green-700 p-6 shadow-lg dark:border-black dark:bg-green-800">
           <div className="flex items-center gap-2">
-            <Star className="h-5 w-5 text-yellow-500" />
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">Points</p>
+            <Star className="h-5 w-5 text-yellow-300" />
+            <p
+              className="text-white"
+              style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}
+            >
+              Points
+            </p>
           </div>
-          <p className="mt-2 text-3xl font-bold text-emerald-600 dark:text-emerald-400">
+          <p
+            className="mt-2 text-4xl font-bold text-white"
+            style={{ fontFamily: "var(--font-pixel)" }}
+          >
             {totalPoints}
           </p>
         </div>
 
-        <div className="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="border-4 border-stone-900 bg-blue-700 p-6 shadow-lg dark:border-black dark:bg-blue-800">
           <div className="flex items-center gap-2">
-            <Trophy className="h-5 w-5 text-amber-500" />
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">Rank</p>
+            <Trophy className="h-5 w-5 text-yellow-300" />
+            <p
+              className="text-white"
+              style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}
+            >
+              Rank
+            </p>
           </div>
-          <p className="mt-2 text-3xl font-bold">
+          <p
+            className="mt-2 text-4xl font-bold text-white"
+            style={{ fontFamily: "var(--font-pixel)" }}
+          >
             {rank ? `#${rank}` : "--"}
           </p>
         </div>
 
-        <div className="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="border-4 border-stone-900 bg-teal-700 p-6 shadow-lg dark:border-black dark:bg-teal-800">
           <div className="flex items-center gap-2">
-            <GitBranch className="h-5 w-5 text-blue-500" />
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            <GitBranch className="h-5 w-5 text-yellow-300" />
+            <p
+              className="text-white"
+              style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}
+            >
               Linked Repos
             </p>
           </div>
           <div className="mt-2 flex items-center justify-between">
-            <p className="text-3xl font-bold">{repoCount}</p>
+            <p
+              className="text-4xl font-bold text-white"
+              style={{ fontFamily: "var(--font-pixel)" }}
+            >
+              {repoCount}
+            </p>
             <Link
               href="/profile"
-              className="flex items-center gap-1 rounded-lg bg-zinc-100 px-2 py-1 text-xs font-medium text-zinc-600 transition-colors hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
+              className="flex items-center gap-1 border-2 border-stone-900 bg-stone-800 px-2 py-1 text-white transition-colors hover:bg-stone-700"
+              style={{ fontFamily: "var(--font-pixel)", fontSize: "0.5rem" }}
             >
               <LinkIcon className="h-3 w-3" />
               Manage
@@ -162,13 +196,20 @@ export default function DashboardPage() {
 
       {/* Quick tip if no repos linked */}
       {repoCount === 0 && (
-        <div className="mt-6 rounded-xl border border-dashed border-emerald-300 bg-emerald-50 p-6 text-center dark:border-emerald-700 dark:bg-emerald-900/20">
-          <p className="text-lg font-semibold text-emerald-700 dark:text-emerald-300">
+        <div className="mt-6 border-4 border-dashed border-green-800 bg-green-600 p-6 text-center shadow-lg dark:border-green-900 dark:bg-green-800">
+          <p
+            className="font-bold text-white"
+            style={{ fontFamily: "var(--font-pixel)", fontSize: "0.875rem" }}
+          >
             Get started
           </p>
-          <p className="mt-1 text-sm text-emerald-600 dark:text-emerald-400">
+          <p className="mt-2 text-sm text-white">
             Head to your{" "}
-            <Link href="/profile" className="underline font-medium">
+            <Link
+              href="/profile"
+              className="font-bold underline"
+              style={{ fontFamily: "var(--font-pixel)" }}
+            >
               Profile
             </Link>{" "}
             to link a repo, then come back and hit &quot;Sync Now&quot; to earn
