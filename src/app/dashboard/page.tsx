@@ -10,7 +10,7 @@ import { ClimberDisplay } from "@/components/game/ClimberDisplay";
 import { Trophy, GitBranch, Star, Loader2, Link as LinkIcon } from "lucide-react";
 import Link from "next/link";
 
-const MAX_POINTS = 100; // Summit target
+// No points cap — climber loops the mountain every 50 points
 
 export default function DashboardPage() {
   const { data: session, status } = useSession();
@@ -56,8 +56,6 @@ export default function DashboardPage() {
 
   if (!session) return null;
 
-  const progressPercent =
-    MAX_POINTS > 0 ? Math.min((totalPoints / MAX_POINTS) * 100, 100) : 0;
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8">
@@ -74,7 +72,7 @@ export default function DashboardPage() {
               Welcome back, @{session.user.githubUsername}!
             </h1>
             <p className="text-zinc-500 dark:text-zinc-400">
-              Push code, earn points, climb the mountain 🏔️
+              Push code, earn points, reach the summit.
             </p>
           </div>
         </div>
@@ -133,11 +131,7 @@ export default function DashboardPage() {
       {/* Climber + Activity side by side */}
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         {/* Climber Display */}
-        <ClimberDisplay
-          totalPoints={totalPoints}
-          maxPoints={MAX_POINTS}
-          progressPercent={progressPercent}
-        />
+        <ClimberDisplay totalPoints={totalPoints} />
 
         {/* Activity Feed */}
         <ActivityFeed events={recentEvents} />
@@ -147,7 +141,7 @@ export default function DashboardPage() {
       {repoCount === 0 && (
         <div className="mt-6 rounded-xl border border-dashed border-emerald-300 bg-emerald-50 p-6 text-center dark:border-emerald-700 dark:bg-emerald-900/20">
           <p className="text-lg font-semibold text-emerald-700 dark:text-emerald-300">
-            🚀 Get started!
+            Get started
           </p>
           <p className="mt-1 text-sm text-emerald-600 dark:text-emerald-400">
             Head to your{" "}

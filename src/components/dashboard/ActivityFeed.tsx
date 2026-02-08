@@ -19,7 +19,9 @@ interface ActivityFeedProps {
 }
 
 export function ActivityFeed({ events }: ActivityFeedProps) {
-  if (events.length === 0) {
+  const recentEvents = events.slice(0, 5);
+
+  if (recentEvents.length === 0) {
     return (
       <div className="rounded-xl border border-zinc-200 bg-white p-6 text-center dark:border-zinc-800 dark:bg-zinc-900">
         <p className="text-zinc-500 dark:text-zinc-400">
@@ -36,7 +38,7 @@ export function ActivityFeed({ events }: ActivityFeedProps) {
         <h3 className="font-semibold">Recent Activity</h3>
       </div>
       <ul className="divide-y divide-zinc-100 dark:divide-zinc-800">
-        {events.map((event) => (
+        {recentEvents.map((event) => (
           <li key={event.id} className="flex items-center gap-3 px-4 py-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/30">
               <GitBranch className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
