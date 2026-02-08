@@ -25,25 +25,29 @@ export function Navbar() {
             <>
               <Link
                 href="/dashboard"
-                className="text-sm font-bold text-white transition-colors hover:text-yellow-300" style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}"
+                className="text-sm font-bold text-white transition-colors hover:text-yellow-300"
+                style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}
               >
                 Dashboard
               </Link>
               <Link
                 href="/leaderboard"
-                className="text-sm font-bold text-white transition-colors hover:text-yellow-300" style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}"
+                className="text-sm font-bold text-white transition-colors hover:text-yellow-300"
+                style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}
               >
                 Leaderboard
               </Link>
               <Link
                 href="/groups"
-                className="text-sm font-bold text-white transition-colors hover:text-yellow-300" style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}"
+                className="text-sm font-bold text-white transition-colors hover:text-yellow-300"
+                style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}
               >
                 Climbing Gyms
               </Link>
               <Link
                 href="/profile"
-                className="text-sm font-bold text-white transition-colors hover:text-yellow-300" style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}"
+                className="text-sm font-bold text-white transition-colors hover:text-yellow-300"
+                style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}
               >
                 Profile
               </Link>
@@ -59,7 +63,8 @@ export function Navbar() {
             <>
               <Link
                 href="/leaderboard"
-                className="text-sm font-bold text-white transition-colors hover:text-yellow-300" style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}"
+                className="text-sm font-bold text-white transition-colors hover:text-yellow-300"
+                style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}
               >
                 Leaderboard
               </Link>
