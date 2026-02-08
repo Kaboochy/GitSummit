@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { Trophy, Medal, Award, Loader2 } from "lucide-react";
+import { Trophy, Medal, Award, Loader2, ArrowLeft } from "lucide-react";
 import { MountainClimbers } from "@/components/leaderboard/MountainClimbers";
+import Link from "next/link";
 
 interface LeaderboardUser {
   id: string;
@@ -65,6 +66,16 @@ export default function LeaderboardPage() {
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-3xl px-4 py-8">
+      {/* Back Button */}
+      <Link
+        href="/dashboard"
+        className="mb-4 inline-flex items-center gap-2 border-4 border-stone-900 bg-stone-800 px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-stone-700 dark:border-black dark:bg-stone-900"
+        style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Back to Dashboard
+      </Link>
+
       {/* Header */}
       <div className="mb-8 text-center">
         <Trophy className="mx-auto h-12 w-12 text-yellow-400 drop-shadow-lg" style={{ filter: "drop-shadow(0 0 15px rgba(251, 191, 36, 0.8))" }} />

@@ -63,7 +63,20 @@ export default function DashboardPage() {
 
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8">
+    <div className="relative min-h-screen">
+      {/* Background Image */}
+      <div
+        className="fixed inset-0 bg-cover bg-center opacity-70"
+        style={{
+          backgroundImage: "url(/sprites/ElCapoochyBannerLow.png)",
+          imageRendering: "pixelated",
+          filter: "brightness(1.1) contrast(1.05)",
+        }}
+      />
+      <div className="fixed inset-0 bg-gradient-to-b from-sky-400/20 via-transparent to-green-900/30 dark:from-sky-950/30 dark:via-transparent dark:to-green-950/40" />
+
+      {/* Content */}
+      <div className="relative z-10 mx-auto max-w-5xl px-4 py-8">
       {/* Welcome header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
@@ -163,6 +176,7 @@ export default function DashboardPage() {
           </p>
         </div>
       )}
+      </div>
     </div>
   );
 }

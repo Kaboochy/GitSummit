@@ -11,11 +11,11 @@ export function Navbar() {
   const { data: session } = useSession();
 
   return (
-    <nav className="border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
+    <nav className="border-b-4 border-stone-900 bg-stone-800 dark:border-black dark:bg-stone-900">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 text-lg font-bold">
-          <Mountain className="h-6 w-6 text-emerald-600" />
+        <Link href="/" className="flex items-center gap-2 text-lg font-bold text-white" style={{ fontFamily: "var(--font-pixel)", fontSize: "0.875rem" }}>
+          <Mountain className="h-6 w-6 text-white" />
           <span>GitSummit</span>
         </Link>
 
@@ -25,25 +25,25 @@ export function Navbar() {
             <>
               <Link
                 href="/dashboard"
-                className="text-sm text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+                className="text-sm font-bold text-white transition-colors hover:text-yellow-300" style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}"
               >
                 Dashboard
               </Link>
               <Link
                 href="/leaderboard"
-                className="text-sm text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+                className="text-sm font-bold text-white transition-colors hover:text-yellow-300" style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}"
               >
                 Leaderboard
               </Link>
               <Link
                 href="/groups"
-                className="text-sm text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+                className="text-sm font-bold text-white transition-colors hover:text-yellow-300" style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}"
               >
                 Climbing Gyms
               </Link>
               <Link
                 href="/profile"
-                className="text-sm text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+                className="text-sm font-bold text-white transition-colors hover:text-yellow-300" style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}"
               >
                 Profile
               </Link>
@@ -59,7 +59,7 @@ export function Navbar() {
             <>
               <Link
                 href="/leaderboard"
-                className="text-sm text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+                className="text-sm font-bold text-white transition-colors hover:text-yellow-300" style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}"
               >
                 Leaderboard
               </Link>

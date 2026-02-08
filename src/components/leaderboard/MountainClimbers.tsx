@@ -79,14 +79,14 @@ function AnimatedClimber({ user, index, totalUsers }: AnimatedClimberProps) {
   }, []);
 
   // Calculate vertical position based on rank
-  // Top ranks (1-3) near summit (20-35%), mid ranks (4-8) middle (40-60%), lower ranks at base (65-85%)
+  // REVERSED: 1st place at summit (75% from bottom = high), lower ranks at base
   const getVerticalPosition = (rank: number) => {
-    if (rank === 1) return 25;
-    if (rank === 2) return 30;
-    if (rank === 3) return 35;
-    if (rank <= 6) return 45 + (rank - 4) * 5;
-    if (rank <= 9) return 60 + (rank - 7) * 5;
-    return 75 + (rank - 10) * 3;
+    if (rank === 1) return 75; // Highest - at summit
+    if (rank === 2) return 70;
+    if (rank === 3) return 65;
+    if (rank <= 6) return 60 - (rank - 4) * 5;
+    if (rank <= 9) return 45 - (rank - 7) * 3;
+    return Math.max(20, 35 - (rank - 10) * 2); // Lowest ranks at base
   };
 
   // Calculate horizontal position - spread climbers across the mountain
@@ -122,13 +122,14 @@ function AnimatedClimber({ user, index, totalUsers }: AnimatedClimberProps) {
         #{user.rank} {user.display_name || user.github_username}
       </div>
 
-      {/* Animated climber sprite */}
+      {/* Animated climber sprite with unique color */}
       <div
         style={{
           width: FRAME_WIDTH * SCALE,
           height: FRAME_HEIGHT * SCALE,
           overflow: "hidden",
           imageRendering: "pixelated",
+          filter: `hue-rotate(${(index * 40) % 360}deg) saturate(1.2)`,
         }}
       >
         <div
