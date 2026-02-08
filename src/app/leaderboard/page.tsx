@@ -1,0 +1,208 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { Trophy, Medal, Award, Loader2 } from "lucide-react";
+
+interface LeaderboardUser {
+  id: string;
+  github_username: string;
+  avatar_url: string;
+  display_name: string;
+  total_points: number;
+  rank: number;
+}
+
+export default function LeaderboardPage() {
+  const { data: session } = useSession();
+  const [users, setUsers] = useState<LeaderboardUser[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchLeaderboard() {
+      try {
+        const res = await fetch("/api/leaderboard");
+        if (res.ok) {
+          const data = await res.json();
+          setUsers(data.leaderboard || []);
+        }
+      } catch (err) {
+        console.error("Failed to fetch leaderboard:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchLeaderboard();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />
+      </div>
+    );
+  }
+
+  // Split top 3 and the rest
+  const top3 = users.slice(0, 3);
+  const rest = users.slice(3);
+
+  return (
+    <div className="mx-auto max-w-3xl px-4 py-8">
+      {/* Header */}
+      <div className="mb-8 text-center">
+        <Trophy className="mx-auto h-10 w-10 text-yellow-500" />
+        <h1 className="mt-2 text-3xl font-bold">Leaderboard</h1>
+        <p className="mt-1 text-zinc-500 dark:text-zinc-400">
+          Top climbers ranked by push points
+        </p>
+      </div>
+
+      {/* Top 3 Podium */}
+      {top3.length > 0 && (
+        <div className="mb-8 flex items-end justify-center gap-4">
+          {/* 2nd place */}
+          {top3[1] && (
+            <PodiumCard user={top3[1]} place={2} />
+          )}
+          {/* 1st place */}
+          {top3[0] && (
+            <PodiumCard user={top3[0]} place={1} />
+          )}
+          {/* 3rd place */}
+          {top3[2] && (
+            <PodiumCard user={top3[2]} place={3} />
+          )}
+        </div>
+      )}
+
+      {/* Empty state */}
+      {users.length === 0 && (
+        <div className="rounded-xl border border-dashed border-zinc-300 p-8 text-center dark:border-zinc-700">
+          <p className="text-lg font-medium text-zinc-500 dark:text-zinc-400">
+            No climbers yet!
+          </p>
+          <p className="mt-1 text-sm text-zinc-400 dark:text-zinc-500">
+            Sign in, link a repo, and start pushing code to claim the #1 spot.
+          </p>
+        </div>
+      )}
+
+      {/* Rest of the leaderboard */}
+      {rest.length > 0 && (
+        <div className="rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+          {rest.map((user) => {
+            const isCurrentUser =
+              session?.user?.githubUsername === user.github_username;
+
+            return (
+              <div
+                key={user.id}
+                className={`flex items-center gap-4 border-b border-zinc-100 px-4 py-3 last:border-b-0 dark:border-zinc-800 ${
+                  isCurrentUser
+                    ? "bg-emerald-50 dark:bg-emerald-900/20"
+                    : ""
+                }`}
+              >
+                {/* Rank */}
+                <span className="w-8 text-center text-sm font-bold text-zinc-400 dark:text-zinc-500">
+                  #{user.rank}
+                </span>
+
+                {/* Avatar */}
+                {user.avatar_url && (
+                  <Image
+                    src={user.avatar_url}
+                    alt={user.github_username}
+                    width={36}
+                    height={36}
+                    className="rounded-full"
+                  />
+                )}
+
+                {/* Name */}
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium truncate">
+                    {user.display_name || user.github_username}
+                    {isCurrentUser && (
+                      <span className="ml-2 text-xs text-emerald-600 dark:text-emerald-400">
+                        (You)
+                      </span>
+                    )}
+                  </p>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                    @{user.github_username}
+                  </p>
+                </div>
+
+                {/* Points */}
+                <span className="text-lg font-bold text-emerald-600 dark:text-emerald-400">
+                  {user.total_points}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** Podium card for top 3 users */
+function PodiumCard({
+  user,
+  place,
+}: {
+  user: LeaderboardUser;
+  place: 1 | 2 | 3;
+}) {
+  const heights = { 1: "h-36", 2: "h-28", 3: "h-24" };
+  const colors = {
+    1: "from-yellow-400 to-yellow-500",
+    2: "from-zinc-300 to-zinc-400",
+    3: "from-amber-600 to-amber-700",
+  };
+  const icons = {
+    1: <Trophy className="h-6 w-6 text-yellow-500" />,
+    2: <Medal className="h-5 w-5 text-zinc-400" />,
+    3: <Award className="h-5 w-5 text-amber-600" />,
+  };
+  const sizes = { 1: 72, 2: 56, 3: 56 };
+
+  return (
+    <div className="flex flex-col items-center">
+      {/* Icon */}
+      <div className="mb-2">{icons[place]}</div>
+
+      {/* Avatar */}
+      {user.avatar_url && (
+        <Image
+          src={user.avatar_url}
+          alt={user.github_username}
+          width={sizes[place]}
+          height={sizes[place]}
+          className={`rounded-full border-2 ${
+            place === 1 ? "border-yellow-400" : place === 2 ? "border-zinc-300" : "border-amber-600"
+          }`}
+        />
+      )}
+
+      {/* Name + Points */}
+      <p className="mt-2 text-sm font-semibold truncate max-w-[100px]">
+        {user.display_name || user.github_username}
+      </p>
+      <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">
+        {user.total_points}
+      </p>
+
+      {/* Podium bar */}
+      <div
+        className={`${heights[place]} w-20 rounded-t-lg bg-gradient-to-t ${colors[place]} mt-2 flex items-center justify-center`}
+      >
+        <span className="text-2xl font-black text-white">#{place}</span>
+      </div>
+    </div>
+  );
+}
