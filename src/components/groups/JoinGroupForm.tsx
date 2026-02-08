@@ -80,7 +80,7 @@ export function JoinGroupForm({ onJoined }: JoinGroupFormProps) {
         ) : (
           <UserPlus className="h-4 w-4" />
         )}
-        Join Group
+        Join Climbing Gym
       </button>
     </form>
   );

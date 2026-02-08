@@ -5,6 +5,7 @@
 
 import { createAdminClient } from "@/lib/supabase/admin";
 import { pollRepoEvents } from "./client";
+import { calculateAndAwardStreakBonus } from "@/lib/streaks/calculate";
 
 interface SyncResult {
   repoName: string;
@@ -96,24 +97,10 @@ export async function syncUserRepos(userId: string): Promise<SyncResult[]> {
         })
         .eq("id", repo.id);
 
-      // 6. Update user's total_points
+      // 6. Update user's total_points and calculate streak bonus
       if (newPushCount > 0) {
-        const { data: totalData } = await supabase
-          .from("push_events")
-          .select("points_awarded")
-          .eq("user_id", userId);
-
-        const totalPoints = totalData
-          ? totalData.reduce((sum, e) => sum + (e.points_awarded || 0), 0)
-          : 0;
-
-        await supabase
-          .from("users")
-          .update({
-            total_points: totalPoints,
-            updated_at: new Date().toISOString(),
-          })
-          .eq("id", userId);
+        // Calculate streak bonus (first push of day = +1, weekly/monthly milestones)
+        await calculateAndAwardStreakBonus(userId);
       }
 
       results.push({

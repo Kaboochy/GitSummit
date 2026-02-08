@@ -16,7 +16,7 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 text-lg font-bold">
           <Mountain className="h-6 w-6 text-emerald-600" />
-          <span>GitCompete</span>
+          <span>GitSummit</span>
         </Link>
 
         {/* Nav links + auth */}
@@ -39,7 +39,7 @@ export function Navbar() {
                 href="/groups"
                 className="text-sm text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
               >
-                Groups
+                Climbing Gyms
               </Link>
               <Link
                 href="/profile"

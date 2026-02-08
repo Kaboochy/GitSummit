@@ -60,7 +60,7 @@ export default function GroupsPage() {
   if (!session) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <p>Please sign in to view groups.</p>
+        <p>Please sign in to view climbing gyms.</p>
       </div>
     );
   }
@@ -71,10 +71,10 @@ export default function GroupsPage() {
       <div className="mb-8">
         <h1 className="text-2xl font-bold flex items-center gap-2">
           <Users className="h-7 w-7 text-emerald-600" />
-          Groups
+          Climbing Gyms
         </h1>
         <p className="mt-1 text-zinc-500 dark:text-zinc-400">
-          Create or join groups to compete with friends!
+          Create or join climbing gyms to compete with friends!
         </p>
       </div>
 
@@ -82,27 +82,27 @@ export default function GroupsPage() {
       <div className="mb-8 grid gap-6 sm:grid-cols-2">
         <div className="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
           <h2 className="mb-3 text-sm font-semibold text-zinc-500 uppercase tracking-wide dark:text-zinc-400">
-            Create a Group
+            Create a Climbing Gym
           </h2>
           <CreateGroupForm onCreated={() => fetchGroups()} />
         </div>
 
         <div className="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
           <h2 className="mb-3 text-sm font-semibold text-zinc-500 uppercase tracking-wide dark:text-zinc-400">
-            Join a Group
+            Join a Climbing Gym
           </h2>
           <JoinGroupForm onJoined={() => fetchGroups()} />
         </div>
       </div>
 
       {/* Group list */}
-      <h2 className="mb-4 text-lg font-semibold">Your Groups</h2>
+      <h2 className="mb-4 text-lg font-semibold">Your Climbing Gyms</h2>
 
       {groups.length === 0 ? (
         <div className="rounded-xl border border-dashed border-zinc-300 p-8 text-center dark:border-zinc-700">
           <Users className="mx-auto h-10 w-10 text-zinc-300 dark:text-zinc-600" />
           <p className="mt-3 text-zinc-500 dark:text-zinc-400">
-            You&apos;re not in any groups yet. Create one or join with an invite
+            You&apos;re not in any climbing gyms yet. Create one or join with an invite
             code!
           </p>
         </div>

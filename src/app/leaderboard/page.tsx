@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { Trophy, Medal, Award, Loader2 } from "lucide-react";
+import { MountainClimbers } from "@/components/leaderboard/MountainClimbers";
 
 interface LeaderboardUser {
   id: string;
@@ -50,15 +51,39 @@ export default function LeaderboardPage() {
   const rest = users.slice(3);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
+    <div className="relative min-h-screen">
+      {/* Background Image - Full opacity mountain */}
+      <div
+        className="fixed inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: "url(/sprites/ElCapoochyBannerHigh.png)",
+          imageRendering: "pixelated",
+          filter: "brightness(1.15) contrast(1.1)",
+        }}
+      />
+      <div className="fixed inset-0 bg-gradient-to-b from-sky-300/20 via-transparent to-green-900/30 dark:from-sky-950/30 dark:via-transparent dark:to-green-950/50" />
+
+      {/* Content */}
+      <div className="relative z-10 mx-auto max-w-3xl px-4 py-8">
       {/* Header */}
       <div className="mb-8 text-center">
-        <Trophy className="mx-auto h-10 w-10 text-yellow-500" />
-        <h1 className="mt-2 text-3xl font-bold">Leaderboard</h1>
-        <p className="mt-1 text-zinc-500 dark:text-zinc-400">
-          Top climbers ranked by push points
+        <Trophy className="mx-auto h-12 w-12 text-yellow-400 drop-shadow-lg" style={{ filter: "drop-shadow(0 0 15px rgba(251, 191, 36, 0.8))" }} />
+        <h1
+          className="mt-3 text-4xl font-bold text-white drop-shadow-2xl"
+          style={{
+            fontFamily: "var(--font-pixel)",
+            textShadow: "0 4px 12px rgba(0,0,0,0.8), 0 0 40px rgba(91,163,208,0.4)"
+          }}
+        >
+          Summit Leaderboard
+        </h1>
+        <p className="mt-2 text-lg font-medium text-white drop-shadow-lg" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.7)" }}>
+          Top climbers conquering the mountain
         </p>
       </div>
+
+      {/* Mountain Climbers Visualization */}
+      {users.length > 0 && <MountainClimbers users={users} />}
 
       {/* Top 3 Podium */}
       {top3.length > 0 && (
@@ -146,6 +171,7 @@ export default function LeaderboardPage() {
           })}
         </div>
       )}
+      </div>
     </div>
   );
 }

@@ -41,7 +41,7 @@ export function TopClimbers() {
   return (
     <div className="mt-16 w-full max-w-md">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="flex items-center gap-2 text-lg font-semibold">
+        <h2 className="flex items-center gap-2 text-lg font-semibold" style={{ fontFamily: "var(--font-pixel)", fontSize: "0.875rem" }}>
           <Trophy className="h-5 w-5 text-yellow-500" />
           Top Climbers
         </h2>
@@ -54,11 +54,11 @@ export function TopClimbers() {
         </Link>
       </div>
 
-      <div className="rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="rounded-xl border-4 border-green-800 bg-gradient-to-br from-green-50 via-blue-50 to-teal-50 shadow-2xl dark:border-green-900 dark:from-green-950/80 dark:via-blue-950/80 dark:to-teal-950/80" style={{ backdropFilter: "blur(10px)" }}>
         {users.map((user) => (
           <div
             key={user.id}
-            className="flex items-center gap-3 border-b border-zinc-100 px-4 py-3 last:border-b-0 dark:border-zinc-800"
+            className="flex items-center gap-3 border-b border-green-200 px-4 py-3 last:border-b-0 dark:border-green-900/50"
           >
             <span className="w-6 text-center text-sm font-bold text-zinc-400">
               #{user.rank}
@@ -75,7 +75,7 @@ export function TopClimbers() {
             <span className="flex-1 truncate text-sm font-medium">
               {user.display_name || user.github_username}
             </span>
-            <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
+            <span className="text-sm font-bold text-green-700 dark:text-green-400">
               {user.total_points} pts
             </span>
           </div>

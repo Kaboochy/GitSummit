@@ -16,10 +16,10 @@ export async function GET() {
 
   const supabase = createAdminClient();
 
-  // Get user's internal ID and total points
+  // Get user's internal ID, total points, and streaks
   const { data: user, error: userError } = await supabase
     .from("users")
-    .select("id, total_points")
+    .select("id, total_points, current_streak, longest_streak")
     .eq("github_id", session.user.githubId)
     .single();
 
@@ -63,6 +63,8 @@ export async function GET() {
 
   return NextResponse.json({
     totalPoints: user.total_points || 0,
+    currentStreak: user.current_streak || 0,
+    longestStreak: user.longest_streak || 0,
     repoCount: repoCount || 0,
     rank,
     recentEvents: recentEvents || [],

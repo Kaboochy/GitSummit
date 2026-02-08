@@ -7,6 +7,7 @@ import { UserAvatar } from "@/components/auth/UserAvatar";
 import { SyncButton } from "@/components/dashboard/SyncButton";
 import { ActivityFeed, type PushEvent } from "@/components/dashboard/ActivityFeed";
 import { ClimberDisplay } from "@/components/game/ClimberDisplay";
+import { StreakDisplay } from "@/components/dashboard/StreakDisplay";
 import { Trophy, GitBranch, Star, Loader2, Link as LinkIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -16,6 +17,8 @@ export default function DashboardPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [totalPoints, setTotalPoints] = useState(0);
+  const [currentStreak, setCurrentStreak] = useState(0);
+  const [longestStreak, setLongestStreak] = useState(0);
   const [repoCount, setRepoCount] = useState(0);
   const [rank, setRank] = useState<number | null>(null);
   const [recentEvents, setRecentEvents] = useState<PushEvent[]>([]);
@@ -27,6 +30,8 @@ export default function DashboardPage() {
       if (res.ok) {
         const data = await res.json();
         setTotalPoints(data.totalPoints || 0);
+        setCurrentStreak(data.currentStreak || 0);
+        setLongestStreak(data.longestStreak || 0);
         setRepoCount(data.repoCount || 0);
         setRank(data.rank || null);
         setRecentEvents(data.recentEvents || []);
@@ -86,8 +91,13 @@ export default function DashboardPage() {
         />
       </div>
 
+      {/* Streak Display */}
+      <div className="mt-8">
+        <StreakDisplay currentStreak={currentStreak} longestStreak={longestStreak} />
+      </div>
+
       {/* Stat cards */}
-      <div className="mt-8 grid gap-4 sm:grid-cols-3">
+      <div className="mt-6 grid gap-4 sm:grid-cols-3">
         <div className="rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
           <div className="flex items-center gap-2">
             <Star className="h-5 w-5 text-yellow-500" />

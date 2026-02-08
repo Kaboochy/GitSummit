@@ -48,14 +48,14 @@ export function CreateGroupForm({ onCreated }: CreateGroupFormProps) {
     <form onSubmit={handleSubmit} className="space-y-3">
       <div>
         <label htmlFor="group-name" className="block text-sm font-medium mb-1">
-          Group Name
+          Gym Name
         </label>
         <input
           id="group-name"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="e.g. Hacklahoma Squad"
+          placeholder="e.g. Boulder Heights Gym"
           maxLength={50}
           className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 dark:border-zinc-700 dark:bg-zinc-900"
           required
@@ -91,7 +91,7 @@ export function CreateGroupForm({ onCreated }: CreateGroupFormProps) {
         ) : (
           <Plus className="h-4 w-4" />
         )}
-        Create Group
+        Create Climbing Gym
       </button>
     </form>
   );

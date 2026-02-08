@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Press_Start_2P } from "next/font/google";
 import { Providers } from "@/components/layout/Providers";
 import { Navbar } from "@/components/layout/Navbar";
 import "./globals.css";
@@ -14,10 +14,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const pressStart = Press_Start_2P({
+  weight: "400",
+  variable: "--font-pixel",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
-  title: "GitCompete - Compete with Code",
+  title: "GitSummit - Code More. Climb Higher.",
   description:
-    "Earn points for every push to GitHub. Compete with friends on leaderboards.",
+    "Earn points for every GitHub push. Climb the mountain and reach the summit.",
 };
 
 export default function RootLayout({
@@ -28,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${pressStart.variable} antialiased`}
       >
         <Providers>
           <Navbar />

@@ -82,7 +82,7 @@ export default function GroupDetailPage() {
   }
 
   async function leaveGroup() {
-    if (!confirm("Are you sure you want to leave this group?")) return;
+    if (!confirm("Are you sure you want to leave this climbing gym?")) return;
 
     setLeaving(true);
     try {
@@ -113,7 +113,7 @@ export default function GroupDetailPage() {
           href="/groups"
           className="mt-4 inline-flex items-center gap-1 text-sm text-emerald-600 hover:underline"
         >
-          <ArrowLeft className="h-4 w-4" /> Back to groups
+          <ArrowLeft className="h-4 w-4" /> Back to Climbing Gyms
         </Link>
       </div>
     );
@@ -132,7 +132,7 @@ export default function GroupDetailPage() {
         href="/groups"
         className="mb-4 inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200"
       >
-        <ArrowLeft className="h-4 w-4" /> All Groups
+        <ArrowLeft className="h-4 w-4" /> All Climbing Gyms
       </Link>
 
       {/* Group header */}
@@ -185,10 +185,10 @@ export default function GroupDetailPage() {
         </div>
       </div>
 
-      {/* Group Leaderboard */}
+      {/* Gym Leaderboard */}
       <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold">
         <Trophy className="h-5 w-5 text-yellow-500" />
-        Group Leaderboard
+        Gym Leaderboard
       </h2>
 
       {/* Top 3 Podium */}

@@ -19,7 +19,7 @@ interface ActivityFeedProps {
 }
 
 export function ActivityFeed({ events }: ActivityFeedProps) {
-  const recentEvents = events.slice(0, 5);
+  const recentEvents = events.slice(0, 6);
 
   if (recentEvents.length === 0) {
     return (
