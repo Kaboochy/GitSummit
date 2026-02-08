@@ -11,7 +11,7 @@ export function Navbar() {
   const { data: session } = useSession();
 
   return (
-    <nav className="border-b-4 border-stone-900 bg-stone-800 dark:border-black dark:bg-stone-900">
+    <nav className="relative z-50 border-b-4 border-stone-900 bg-stone-800 dark:border-black dark:bg-stone-900">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 text-lg font-bold text-white" style={{ fontFamily: "var(--font-pixel)", fontSize: "0.875rem" }}>
