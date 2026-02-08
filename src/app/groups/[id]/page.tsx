@@ -15,6 +15,7 @@ import {
   Loader2,
 } from "lucide-react";
 import Link from "next/link";
+import { MountainClimbers } from "@/components/leaderboard/MountainClimbers";
 
 interface GroupMember {
   id: string;
@@ -126,28 +127,58 @@ export default function GroupDetailPage() {
   const rest = members.slice(3);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
-      {/* Back link */}
-      <Link
-        href="/groups"
-        className="mb-4 inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200"
-      >
-        <ArrowLeft className="h-4 w-4" /> All Climbing Gyms
-      </Link>
+    <div className="relative min-h-screen">
+      {/* Background Image */}
+      <div
+        className="fixed inset-0 bg-cover bg-center opacity-70"
+        style={{
+          backgroundImage: "url(/sprites/ElCapoochyBannerLow.png)",
+          imageRendering: "pixelated",
+          filter: "brightness(1.1) contrast(1.05)",
+        }}
+      />
+      <div className="fixed inset-0 bg-gradient-to-b from-sky-400/20 via-transparent to-green-900/30 dark:from-sky-950/30 dark:via-transparent dark:to-green-950/40" />
 
-      {/* Group header */}
-      <div className="mb-6 flex items-start justify-between">
-        <div>
-          <h1 className="text-2xl font-bold flex items-center gap-2">
-            <Users className="h-7 w-7 text-emerald-600" />
-            {group.name}
-          </h1>
+      {/* Content */}
+      <div className="relative z-10 mx-auto max-w-3xl px-4 py-8">
+        {/* Back link */}
+        <Link
+          href="/groups"
+          className="mb-4 inline-flex items-center gap-1 border-2 border-stone-900 bg-stone-800 px-3 py-2 font-bold text-white transition-colors hover:bg-stone-700"
+          style={{ fontFamily: "var(--font-pixel)", fontSize: "0.625rem" }}
+        >
+          <ArrowLeft className="h-4 w-4" /> All Climbing Gyms
+        </Link>
+
+        {/* Group header */}
+        <div className="mb-6 flex items-start justify-between">
+          <div>
+            <h1
+              className="flex items-center gap-2 font-bold text-white drop-shadow-lg"
+              style={{
+                fontFamily: "var(--font-pixel)",
+                fontSize: "1.25rem",
+                textShadow: "0 2px 6px rgba(0,0,0,0.8)",
+              }}
+            >
+              <Users className="h-7 w-7 text-yellow-300" />
+              {group.name}
+            </h1>
           {group.description && (
-            <p className="mt-1 text-zinc-500 dark:text-zinc-400">
+            <p
+              className="mt-2 text-white drop-shadow-lg"
+              style={{ textShadow: "0 2px 4px rgba(0,0,0,0.7)" }}
+            >
               {group.description}
             </p>
           )}
-          <p className="mt-1 text-xs text-zinc-400 dark:text-zinc-500">
+          <p
+            className="mt-2 text-white drop-shadow-lg"
+            style={{
+              fontSize: "0.75rem",
+              textShadow: "0 2px 4px rgba(0,0,0,0.7)",
+            }}
+          >
             {members.length} member{members.length !== 1 ? "s" : ""} · Created{" "}
             {new Date(group.created_at).toLocaleDateString()}
           </p>
@@ -185,9 +216,19 @@ export default function GroupDetailPage() {
         </div>
       </div>
 
+      {/* Mountain Climbers Visualization */}
+      {members.length > 0 && <MountainClimbers users={members} />}
+
       {/* Gym Leaderboard */}
-      <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold">
-        <Trophy className="h-5 w-5 text-yellow-500" />
+      <h2
+        className="mb-4 flex items-center gap-2 font-bold text-white drop-shadow-lg"
+        style={{
+          fontFamily: "var(--font-pixel)",
+          fontSize: "0.875rem",
+          textShadow: "0 2px 6px rgba(0,0,0,0.8)",
+        }}
+      >
+        <Trophy className="h-5 w-5 text-yellow-300" />
         Gym Leaderboard
       </h2>
 
@@ -261,6 +302,7 @@ export default function GroupDetailPage() {
           </p>
         </div>
       )}
+      </div>
     </div>
   );
 }
