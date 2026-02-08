@@ -36,8 +36,11 @@ export async function calculateAndAwardStreakBonus(
   const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
   const lastPushDate = user.last_push_date;
 
-  // If already pushed today, no bonus
+  // If already pushed today, no streak bonus but still update total_points
   if (lastPushDate === today) {
+    // Recalculate total_points to include new push events
+    await recalculateTotalPoints(supabase, userId);
+
     return {
       bonusPoints: 0,
       currentStreak: user.current_streak || 0,
@@ -106,34 +109,10 @@ export async function calculateAndAwardStreakBonus(
       bonus_points: bonusPoints,
       milestone_type: milestone || "daily",
     });
-
-    // Award bonus points to total_points
-    const { data: totalData } = await supabase
-      .from("push_events")
-      .select("points_awarded")
-      .eq("user_id", userId);
-
-    const totalPushPoints = totalData
-      ? totalData.reduce((sum, e) => sum + (e.points_awarded || 0), 0)
-      : 0;
-
-    // Get total streak bonuses
-    const { data: streakData } = await supabase
-      .from("streaks_log")
-      .select("bonus_points")
-      .eq("user_id", userId);
-
-    const totalStreakBonus = streakData
-      ? streakData.reduce((sum, s) => sum + (s.bonus_points || 0), 0)
-      : 0;
-
-    await supabase
-      .from("users")
-      .update({
-        total_points: totalPushPoints + totalStreakBonus,
-      })
-      .eq("id", userId);
   }
+
+  // Always recalculate total_points after any push
+  await recalculateTotalPoints(supabase, userId);
 
   return {
     bonusPoints,
@@ -141,4 +120,41 @@ export async function calculateAndAwardStreakBonus(
     isNewStreakDay: true,
     milestoneReached: milestone,
   };
+}
+
+/**
+ * Recalculates and updates the user's total_points by summing
+ * all push event points and streak bonus points.
+ */
+async function recalculateTotalPoints(
+  supabase: ReturnType<typeof createAdminClient>,
+  userId: string
+): Promise<void> {
+  // Sum all push event points
+  const { data: totalData } = await supabase
+    .from("push_events")
+    .select("points_awarded")
+    .eq("user_id", userId);
+
+  const totalPushPoints = totalData
+    ? totalData.reduce((sum, e) => sum + (e.points_awarded || 0), 0)
+    : 0;
+
+  // Sum all streak bonus points
+  const { data: streakData } = await supabase
+    .from("streaks_log")
+    .select("bonus_points")
+    .eq("user_id", userId);
+
+  const totalStreakBonus = streakData
+    ? streakData.reduce((sum, s) => sum + (s.bonus_points || 0), 0)
+    : 0;
+
+  // Update user's total_points
+  await supabase
+    .from("users")
+    .update({
+      total_points: totalPushPoints + totalStreakBonus,
+    })
+    .eq("id", userId);
 }
